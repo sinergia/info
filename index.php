@@ -17,12 +17,13 @@
 //error_reporting(-1); // ALL errors
 define('START_TIME', microtime(true));
 
-function define_function($name, $return = null) {
+function define_function($name, $return = null)
+{
     if (!function_exists($name)) {
         if ($return !== null) {
             $return = var_export($return, true);
             eval("function $name() { return $return; }");
-        }else{
+        } else {
             $message = "function %s does not exists!";
             eval("function $name() { return sprintf('$message', '$name'); }");
         }
@@ -35,6 +36,7 @@ function error_handler()
     $args = func_get_args();
     array_pop($args);
     $GLOBALS['ERRORS'][microtime(true)-START_TIME] = $args;
+
     return true;
 }
 $GLOBALS['ERRORS'] = array();
@@ -46,7 +48,8 @@ function array_index($array, $index) { return $array[$index]; }
 function user_name($id) { return array_index(posix_getpwuid($id), 'name'); }
 function group_name($id) { return array_index(posix_getgrgid($id), 'name'); }
 
-function access($bm) {
+function access($bm)
+{
     if ($bm == 7) return 'PHP_INI_ALL';
     if ($bm == 4) return 'PHP_INI_SYSTEM';
     if ($bm == 6) return 'PHP_INI_PERDIR';
@@ -65,6 +68,7 @@ function phpinfo2a()
     foreach($keys as &$k) $k = trim($k);
     $values = $sxml->xpath('//td[@class="v"]');
     foreach($values as &$v) $v = trim($v);
+
     return array_combine($keys, $values);
     //$doc = dom_import_simplexml($sxml);
     //echo $doc->ownerDocument->saveHTML();
@@ -81,15 +85,16 @@ function humanizeBytes($b, $f = "%0.1f ")
     if ($b >= $G) {
         $b /= $G;
         $f .= 'GB';
-    }elseif ($b >= $M) {
+    } elseif ($b >= $M) {
         $b /= $M;
         $f .= 'MB';
-    }elseif ($b >= $K) {
+    } elseif ($b >= $K) {
         $b /= $K;
         $f .= 'KB';
-    }else{
+    } else {
         $f.= 'bytes';
     }
+
     return sprintf($f, $b);
 }
 
@@ -116,9 +121,10 @@ function error_reporting_formatted()
     $e = error_reporting();
     if ($e <= 0) return $e;
     if ($e == E_ALL) return 'E_ALL';
-    foreach($errors as $i => $error) {
+    foreach ($errors as $i => $error) {
         if (!($e & $i)) $out[] = $error;
     }
+
     return 'E_ALL ^ ( '.implode(' | ', $out).' )';
 }
 
@@ -281,7 +287,7 @@ $infos = compact('sys', 'phpinfo', 'server', 'env', 'cookies', 'session', 'exten
             if (hash) {
                 $(hash).addClass('active')
                 $('a[href=' + hash + ']').parent().addClass('active')
-            }else{
+            } else {
                 $('ul.nav-tabs li:first a').trigger('click')
             }
             $(".nav-tabs a").click(function() {
