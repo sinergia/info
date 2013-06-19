@@ -238,7 +238,7 @@ $infos = compact('sys', 'phpinfo', 'server', 'env', 'cookies', 'session', 'exten
                 <?php foreach($info as $k => $v): ?>
                 <tr>
                     <th><?php echo h( $k )?></th>
-                    <td><?php echo h( is_string($v) ? $v : var_export($v, true) )?></td>
+                    <td style="white-space: pre"><?php echo h( is_string($v) ? $v : var_export($v, true) )?></td>
                 </tr>
                 <?php endforeach ?>
             </table>
