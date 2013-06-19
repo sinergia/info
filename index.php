@@ -137,8 +137,9 @@ session_start();
 
 $user = 'php';
 $passwd = 'info';
+$local = PHP_SAPI == 'cgi-fcgi' || PHP_OS == 'Darwin';
 
-if ($user && PHP_SAPI != 'cgi-fcgi') {
+if ($user && !$local) {
     if (
         ! isset($_SERVER['PHP_AUTH_USER'])
         || $_SERVER['PHP_AUTH_USER'] != $user
@@ -188,7 +189,7 @@ $infos = compact('sys', 'phpinfo', 'server', 'env', 'cookies', 'session', 'exten
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
     <title>PHP INFO</title>
-    <link rel="stylesheet" type="text/css" href="http://twitter.github.com/bootstrap/assets/css/bootstrap.css" />
+    <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css" rel="stylesheet">
     <style>
         body { background-color: #222; cursor: default }
         #main {width: 1000px; margin: 20px auto;}
@@ -237,7 +238,7 @@ $infos = compact('sys', 'phpinfo', 'server', 'env', 'cookies', 'session', 'exten
                 <?php foreach($info as $k => $v): ?>
                 <tr>
                     <th><?php echo h( $k )?></th>
-                    <td><?php echo h( $v )?></td>
+                    <td><?php echo h( is_string($v) ? $v : var_export($v, true) )?></td>
                 </tr>
                 <?php endforeach ?>
             </table>
@@ -278,9 +279,9 @@ $infos = compact('sys', 'phpinfo', 'server', 'env', 'cookies', 'session', 'exten
         </div><!-- #files.tab-pane -->
     </div><!-- .tab-content -->
 
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.0.1/bootstrap.min.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.2.0/coffee-script.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/coffee-script/1.6.3/coffee-script.min.js"></script>
     <script>
         jQuery(function($) {
             var hash = window.location.hash
