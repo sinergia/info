@@ -2,6 +2,8 @@
 
 namespace Sinergia\Info;
 
+use DOMDocument;
+
 class FrontController
 {
 	public function run()
@@ -36,17 +38,15 @@ function define_function($name, $return = null)
     }
 }
 
-function error_handler()
-{
+$GLOBALS['ERRORS'] = array();
+set_error_handler(function() {
     if (error_reporting() === 0) return true;
     $args = func_get_args();
     array_pop($args);
     $GLOBALS['ERRORS'][microtime(true)-START_TIME] = $args;
 
     return true;
-}
-$GLOBALS['ERRORS'] = array();
-set_error_handler('error_handler');
+});
 
 function h($s) { return htmlspecialchars(is_array($s) ? implode(' ', $s) : $s); }
 function changed($values) { return $values['global_value'] == $values['local_value'] ? '' : ' changed'; }
