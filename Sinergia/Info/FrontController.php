@@ -1,5 +1,11 @@
 <?php
 
+namespace Sinergia\Info;
+
+class FrontController
+{
+	public function run()
+	{
 /* https://github.com/GaretJax/phpbrowscap/blob/master/src/phpbrowscap/Browscap.php
 
 @todo permitir manipular a sessão e os cookies
@@ -314,3 +320,6 @@ jQuery ($)->
 <?php endif ?>
 </div></body>
 </html>
+<?php
+	}
+}
