@@ -6,8 +6,8 @@ use DOMDocument;
 
 class FrontController
 {
-	public function run()
-	{
+    public function run()
+    {
 /* https://github.com/GaretJax/phpbrowscap/blob/master/src/phpbrowscap/Browscap.php
 
 @todo permitir manipular a sessão e os cookies
@@ -321,5 +321,5 @@ jQuery ($)->
 </div></body>
 </html>
 <?php
-	}
+    }
 }
