@@ -6,7 +6,7 @@ use DOMDocument;
 
 class FrontController
 {
-    public function run()
+    public static function run()
     {
 /* https://github.com/GaretJax/phpbrowscap/blob/master/src/phpbrowscap/Browscap.php
 
